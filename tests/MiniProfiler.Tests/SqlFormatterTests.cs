@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using StackExchange.Profiling.Internal;
 using StackExchange.Profiling.SqlFormatters;
 using Xunit;
-#if NET461
+#if net462
 using System.Transactions;
 #endif
 
@@ -171,7 +171,7 @@ namespace StackExchange.Profiling.Tests
             var formatter = new VerboseSqlServerFormatter(true);
             const string text = "select 1";
             var cmd = CreateDbCommand(CommandType.Text, text);
-#if NET461
+#if net462
             const string expectedOutput = "-- Command Type: Text\n-- Database: TestDatabase\n-- Transaction Scope Iso Level: Serializable\n\nselect 1;";
             var transactionScope = new TransactionScope();
             var actualOutput = GenerateOutput(formatter, cmd, text);

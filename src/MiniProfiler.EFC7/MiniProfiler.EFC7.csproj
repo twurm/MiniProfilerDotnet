@@ -6,7 +6,7 @@
     <Description>MiniProfiler: Integration for Entity Framework Classic 7</Description>
     <Authors>Jarrod Dixon, Yaakov Ellis, Nick Craver, Jan Krynicky</Authors>
     <PackageTags>Entity Framework;Entity Framework Classic 7;$(PackageBaseTags)</PackageTags>
-    <TargetFrameworks>net461</TargetFrameworks>
+    <TargetFrameworks>net462</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\MiniProfiler.Shared\MiniProfiler.Shared.csproj" />

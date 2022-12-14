@@ -1,4 +1,4 @@
-﻿#if NETCOREAPP3_1
+﻿#if NET6_0_OR_GREATER
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Diagnostics;

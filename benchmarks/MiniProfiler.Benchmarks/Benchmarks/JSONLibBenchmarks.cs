@@ -9,7 +9,7 @@ using StackExchange.Profiling.Internal;
 namespace Benchmarks
 {
     [SimpleJob(RuntimeMoniker.Net472)]
-    [SimpleJob(RuntimeMoniker.Net50)]
+    [SimpleJob(RuntimeMoniker.Net60)]
     [Config(typeof(Configs.Memory))]
     public class JSONLibBenchmarks
     {

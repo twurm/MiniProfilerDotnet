@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-#if NETCOREAPP3_1 // Only in netcoreapp3.1 while in preview
+#if NET6_0_OR_GREATER
 using System.Text.Json;
 #endif
 
@@ -20,7 +20,7 @@ namespace StackExchange.Profiling
     public class MiniProfilerMiddleware
     {
         private readonly RequestDelegate _next;
-#if NETCOREAPP3_1
+#if NET6_0_OR_GREATER
         private readonly IWebHostEnvironment _env;
 #else
         private readonly IHostingEnvironment _env;
@@ -39,7 +39,7 @@ namespace StackExchange.Profiling
         /// <exception cref="ArgumentNullException">Throws when <paramref name="next"/>, <paramref name="hostingEnvironment"/>, or <paramref name="options"/> is <c>null</c>.</exception>
         public MiniProfilerMiddleware(
             RequestDelegate next,
-#if NETCOREAPP3_1
+#if NET6_0_OR_GREATER
             IWebHostEnvironment hostingEnvironment,
 #else
             IHostingEnvironment hostingEnvironment,
@@ -90,7 +90,7 @@ namespace StackExchange.Profiling
                     await SetHeadersAndState(context, mp).ConfigureAwait(false);
                 }
 
-#if NETCOREAPP3_1
+#if NET6_0_OR_GREATER
                 var appendServerTimingHeader = Options.EnableServerTimingHeader && context.Response.SupportsTrailers();
                 if (appendServerTimingHeader)
                 {
@@ -106,7 +106,7 @@ namespace StackExchange.Profiling
                 // Stop (and record)
                 await mp.StopAsync().ConfigureAwait(false);
 
-#if NETCOREAPP3_1 // TODO: Evaluate if this works after http/2 local support in preview 7, maybe backport to netcoreapp2.1
+#if NET6_0_OR_GREATER // TODO: Evaluate if this works after http/2 local support in preview 7, maybe backport to netcoreapp2.1
                 if (appendServerTimingHeader && mp != null)
                 {
                     context.Response.AppendTrailer("Server-Timing", mp.GetServerTimingHeader());
@@ -161,7 +161,7 @@ namespace StackExchange.Profiling
                 {
                     profiler.Name = routeData.Values["page"].ToString();
                 }
-#if NETCOREAPP3_1
+#if NET6_0_OR_GREATER
                 else if (context.GetEndpoint() is Endpoint endPoint && endPoint.DisplayName.HasValue())
                 {
                     profiler.Name = endPoint.DisplayName;
@@ -350,7 +350,7 @@ namespace StackExchange.Profiling
             // Try to parse from the JSON payload first
             if (jsonRequest
                 && context.Request.ContentLength > 0
-#if NETCOREAPP3_1
+#if NET6_0_OR_GREATER
                 && ((clientRequest = await JsonSerializer.DeserializeAsync<ResultRequest>(context.Request.Body)) != null)
 #else
                 && ResultRequest.TryParse(context.Request.Body, out clientRequest)

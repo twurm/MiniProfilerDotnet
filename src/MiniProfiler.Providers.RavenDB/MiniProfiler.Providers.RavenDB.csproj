@@ -5,7 +5,7 @@
     <Description>MiniProfiler: Profiler storage for RavenDB</Description>
     <Authors>Rafael Lillo, Nick Craver</Authors>
     <PackageTags>Raven;RavenDB;$(PackageBaseTags)</PackageTags>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\MiniProfiler.Shared\MiniProfiler.Shared.csproj" />
