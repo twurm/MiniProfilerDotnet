@@ -162,11 +162,11 @@ namespace StackExchange.Profiling.Tests
         {
             using (var conn = GetConnection())
             {
-                const string BadSql = "TROGDOR BURNINATE";
+                const string badSql = "TROGDOR BURNINATE";
 
                 try
                 {
-                    conn.Execute(BadSql);
+                    conn.Execute(badSql);
                 }
                 catch (DbException) { /* yep */ }
 
@@ -175,24 +175,24 @@ namespace StackExchange.Profiling.Tests
                 Assert.Equal(1, profiler.ErrorCount);
                 Assert.Equal(1, profiler.ExecuteStartCount);
                 Assert.Equal(1, profiler.ExecuteFinishCount);
-                Assert.Equal(profiler.ErrorSql, BadSql);
+                Assert.Equal(badSql, profiler.ErrorSql);
 
                 try
                 {
-                    conn.Query<int>(BadSql);
+                    conn.Query<int>(badSql);
                 }
                 catch (DbException) { /* yep */ }
 
                 Assert.Equal(2, profiler.ErrorCount);
                 Assert.Equal(2, profiler.ExecuteStartCount);
                 Assert.Equal(2, profiler.ExecuteFinishCount);
-                Assert.Equal(profiler.ErrorSql, BadSql);
+                Assert.Equal(badSql, profiler.ErrorSql);
 
                 try
                 {
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = BadSql;
+                        cmd.CommandText = badSql;
                         cmd.ExecuteScalar();
                     }
                 }
@@ -201,7 +201,7 @@ namespace StackExchange.Profiling.Tests
                 Assert.Equal(3, profiler.ExecuteStartCount);
                 Assert.Equal(3, profiler.ExecuteFinishCount);
                 Assert.Equal(3, profiler.ErrorCount);
-                Assert.Equal(profiler.ErrorSql, BadSql);
+                Assert.Equal(badSql, profiler.ErrorSql);
             }
         }
 
@@ -210,11 +210,11 @@ namespace StackExchange.Profiling.Tests
         {
             using (var conn = GetConnection())
             {
-                const string BadSql = "TROGDOR BURNINATE";
+                const string badSql = "TROGDOR BURNINATE";
 
                 try
                 {
-                    await conn.ExecuteAsync(BadSql).ConfigureAwait(false);
+                    await conn.ExecuteAsync(badSql).ConfigureAwait(false);
                 }
                 catch (DbException) { /* yep */ }
 
@@ -223,24 +223,24 @@ namespace StackExchange.Profiling.Tests
                 Assert.Equal(1, profiler.ErrorCount);
                 Assert.Equal(1, profiler.ExecuteStartCount);
                 Assert.Equal(1, profiler.ExecuteFinishCount);
-                Assert.Equal(profiler.ErrorSql, BadSql);
+                Assert.Equal(badSql, profiler.ErrorSql);
 
                 try
                 {
-                    await conn.QueryAsync<int>(BadSql).ConfigureAwait(false);
+                    await conn.QueryAsync<int>(badSql).ConfigureAwait(false);
                 }
                 catch (DbException) { /* yep */ }
 
                 Assert.Equal(2, profiler.ErrorCount);
                 Assert.Equal(2, profiler.ExecuteStartCount);
                 Assert.Equal(2, profiler.ExecuteFinishCount);
-                Assert.Equal(profiler.ErrorSql, BadSql);
+                Assert.Equal(badSql, profiler.ErrorSql);
 
                 try
                 {
                     using (var cmd = conn.CreateCommand())
                     {
-                        cmd.CommandText = BadSql;
+                        cmd.CommandText = badSql;
                         await cmd.ExecuteScalarAsync().ConfigureAwait(false);
                     }
                 }
@@ -249,7 +249,7 @@ namespace StackExchange.Profiling.Tests
                 Assert.Equal(3, profiler.ExecuteStartCount);
                 Assert.Equal(3, profiler.ExecuteFinishCount);
                 Assert.Equal(3, profiler.ErrorCount);
-                Assert.Equal(profiler.ErrorSql, BadSql);
+                Assert.Equal(badSql, profiler.ErrorSql);
             }
         }
 
